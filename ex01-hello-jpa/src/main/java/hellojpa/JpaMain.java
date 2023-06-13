@@ -14,12 +14,31 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
+
         tx.begin();
         try {
-            Member member = new Member();
-            member.setUsername("C");
 
+            //저장
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setName("member1");
+            member.setTeam(team);
             em.persist(member);
+
+            //조회
+            /* 영속성 컨텍스트에서 가져오는거 말고 디비에서 가져오는거 보고싶으면 영속성 컨텍스트에 있는 데이터를 지운다.
+             em.flush();
+             em.clear();
+            */
+            Member findMember = em.find(Member.class, member.getId()); //영속성 컨텍스트에서 가져옴
+
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam.getName());
+
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();
