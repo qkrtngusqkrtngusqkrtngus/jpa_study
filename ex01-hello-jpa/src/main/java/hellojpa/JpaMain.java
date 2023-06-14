@@ -29,15 +29,16 @@ public class JpaMain {
             em.persist(member);
 
             //조회
-            /* 영속성 컨텍스트에서 가져오는거 말고 디비에서 가져오는거 보고싶으면 영속성 컨텍스트에 있는 데이터를 지운다.
+            /* 영속성 컨텍스트에서 가져오는거 말고 디비에서 가져오는거 보고싶으면 영속성 컨텍스트에 있는 데이터를 지운다. */
              em.flush();
              em.clear();
-            */
+
             Member findMember = em.find(Member.class, member.getId()); //영속성 컨텍스트에서 가져옴
+            List<Member> members = findMember.getTeam().getMembers();
 
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam.getName());
-
+            for (Member m : members){
+                System.out.println("m = " + m.getName());
+            }
 
             tx.commit();
         } catch (Exception e){

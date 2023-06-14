@@ -11,7 +11,7 @@ public class Member {
     private Long id;
     @Column(name = "USERNAME")
     private String name;
-    @ManyToOne //관계 Team이 1, Member N
+    @ManyToOne //관계 Team이 1, Member N , 외래키가 있는 곳을 주인으로 정해라.
     @JoinColumn(name = "TEAM_ID") //조인하는 컬럼
     private Team team;
 
