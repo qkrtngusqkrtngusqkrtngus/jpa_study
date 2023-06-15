@@ -11,8 +11,9 @@ public class Member {
     private Long id;
     @Column(name = "USERNAME")
     private String name;
-    @ManyToOne //관계 Team이 1, Member N , 외래키가 있는 곳을 주인으로 정해라.
-    @JoinColumn(name = "TEAM_ID") //조인하는 컬럼
+
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //insertable, updatable 옵션을 넣어주면 읽기전용
     private Team team;
 
     public Long getId() {
@@ -29,13 +30,5 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 }

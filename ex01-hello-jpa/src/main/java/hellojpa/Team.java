@@ -10,11 +10,13 @@ public class Team {
     @Id @GeneratedValue
     @Column(name = "TEAM_ID")
     private Long id;
-
     private String name;
 
-    @OneToMany(mappedBy = "team") //Team -> Member 1:N , mappedBy는 조회만 가능
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<>();
+//    @OneToMany(mappedBy = "team") //Team -> Member 1:N , mappedBy는 조회만 가능
+//    private List<Member> members = new ArrayList<>();
     public Long getId() {
         return id;
     }

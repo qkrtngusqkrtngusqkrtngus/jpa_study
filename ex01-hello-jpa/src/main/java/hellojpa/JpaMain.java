@@ -17,28 +17,13 @@ public class JpaMain {
 
         tx.begin();
         try {
+            Member member = saveMember(em);
 
-            //저장
             Team team = new Team();
-            team.setName("TeamA");
+            team.setName("teamA");;
+            team.getMembers().add(member);
+
             em.persist(team);
-
-            Member member = new Member();
-            member.setName("member1");
-            member.setTeam(team);
-            em.persist(member);
-
-            //조회
-            /* 영속성 컨텍스트에서 가져오는거 말고 디비에서 가져오는거 보고싶으면 영속성 컨텍스트에 있는 데이터를 지운다. */
-             em.flush();
-             em.clear();
-
-            Member findMember = em.find(Member.class, member.getId()); //영속성 컨텍스트에서 가져옴
-            List<Member> members = findMember.getTeam().getMembers();
-
-            for (Member m : members){
-                System.out.println("m = " + m.getName());
-            }
 
             tx.commit();
         } catch (Exception e){
@@ -47,5 +32,14 @@ public class JpaMain {
             em.close();
         }
         emf.close();
+
+    }
+
+    private static Member saveMember(EntityManager em) {
+        Member member = new Member();
+        member.setName("member1");
+
+        em.persist(member);
+        return member;
     }
 }
