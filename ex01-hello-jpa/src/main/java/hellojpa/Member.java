@@ -16,6 +16,10 @@ public class Member {
     @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //insertable, updatable 옵션을 넣어주면 읽기전용
     private Team team;
 
+    @OneToOne // Member -> Locker 1:1
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
     public Long getId() {
         return id;
     }
