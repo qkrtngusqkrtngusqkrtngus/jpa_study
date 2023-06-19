@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
@@ -20,6 +22,13 @@ public class Member {
     @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 
+    // 다대다는 실무에서 X 불필요한 데이터가 들어올 수 있다. 단순히 연결만 하고 끝나지 않는다. >> OneToMany , MayToOne (연결테이블을 엔티티로 승격)
+//    @ManyToMany
+//    @JoinTable(name = "MEMBER_PRODUCT")
+//    private List<Product> products = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberProduct> memberProducts = new ArrayList<>();
     public Long getId() {
         return id;
     }
