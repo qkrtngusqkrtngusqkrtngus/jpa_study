@@ -1,18 +1,17 @@
 package jpabook.jpashop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+public abstract class Item { //item만 단독으로 테이블에 저장할 일이 없다는 가정
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
 
-    private String naem;
+    private String name;
     private int price;
     private int srockQuantity;
 
@@ -24,12 +23,12 @@ public class Item {
         this.id = id;
     }
 
-    public String getNaem() {
-        return naem;
+    public String getName() {
+        return name;
     }
 
-    public void setNaem(String naem) {
-        this.naem = naem;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPrice() {

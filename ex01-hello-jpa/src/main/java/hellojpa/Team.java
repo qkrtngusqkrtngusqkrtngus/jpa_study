@@ -1,11 +1,12 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Team {
+public class Team extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "TEAM_ID")
@@ -17,6 +18,12 @@ public class Team {
     private List<Member> members = new ArrayList<>();
 //    @OneToMany(mappedBy = "team") //Team -> Member 1:N , mappedBy는 조회만 가능
 //    private List<Member> members = new ArrayList<>();
+
+    private String createdBy;
+    private LocalDateTime createdDate;
+    private String lastModifiedBy;
+    private LocalDateTime lastModifiedDate;
+
     public Long getId() {
         return id;
     }
