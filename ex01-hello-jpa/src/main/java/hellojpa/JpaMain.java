@@ -1,10 +1,11 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import org.hibernate.Hibernate;
+import org.hibernate.jpa.internal.PersistenceUnitUtilImpl;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class JpaMain {
@@ -19,22 +20,25 @@ public class JpaMain {
         tx.begin();
         try {
 
-            Member member = new Member();
-            member.setName("user1");
-
-            em.persist(member);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
 
             em.flush();
             em.clear();
 
+            Member refMember = em.find(Member.class, member1.getId());
+            System.out.println("refMember = " + refMember.getClass()); //Proxy
+            Hibernate.initialize(refMember);//강제초기화
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
         emf.close();
-
     }
 
 }
