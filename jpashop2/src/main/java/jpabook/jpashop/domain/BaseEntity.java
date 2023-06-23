@@ -4,10 +4,10 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public abstract class BaseEntity {
+public class BaseEntity {
 
     private String createdBy;
-    private LocalDateTime createdDate;
+    private LocalDateTime createDate;
     private String lastModifiedBy;
     private LocalDateTime lastModifiedDate;
 
@@ -19,12 +19,12 @@ public abstract class BaseEntity {
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreateDate() {
+        return createDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
     }
 
     public String getLastModifiedBy() {
