@@ -1,7 +1,6 @@
 package hellojpa;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +15,8 @@ public class Team extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<>();
-//    @OneToMany(mappedBy = "team") //Team -> Member 1:N , mappedBy는 조회만 가능
+    //    @OneToMany(mappedBy = "team") //Team -> Member 1:N , mappedBy는 조회만 가능
 //    private List<Member> members = new ArrayList<>();
-
-    private String createdBy;
-    private LocalDateTime createdDate;
-    private String lastModifiedBy;
-    private LocalDateTime lastModifiedDate;
-
     public Long getId() {
         return id;
     }

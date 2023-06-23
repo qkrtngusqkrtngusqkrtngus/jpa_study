@@ -2,33 +2,54 @@ package hellojpa;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
-public class Member extends BaseEntity {
+public class Member {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
-
     @Column(name = "USERNAME")
-    private String username;
+    private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn
-    private Team team;
+    //기간 Period
+    @Embedded
+    private Period workPeriod;
+    //주소
+    @Embedded
+    private Address homeAddress;
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getUsername() { return username; }
+    public String getName() {
+        return name;
+    }
 
-    public void setUsername(String username) { this.username = username; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public Team getTeam() { return team; }
+    public Period getWorkPeriod() {
+        return workPeriod;
+    }
 
-    public void setTeam(Team team) { this.team = team; }
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
+    }
+
+    public Address getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
+    }
 }

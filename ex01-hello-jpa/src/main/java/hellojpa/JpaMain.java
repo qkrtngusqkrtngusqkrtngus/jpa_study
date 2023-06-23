@@ -1,14 +1,15 @@
 package hellojpa;
 
 import org.hibernate.Hibernate;
-import org.hibernate.jpa.internal.PersistenceUnitUtilImpl;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
-public class JpaMain {//
+public class JpaMain {
 
     public static void main(String[] args){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -19,29 +20,11 @@ public class JpaMain {//
 
         tx.begin();
         try {
-
-            Team team = new Team();
-            team.setName("teamA");
-            em.persist(team);
-
-            Member member1 = new Member();
-            member1.setUsername("member1");
-            member1.setTeam(team);
-            em.persist(member1);
-
-            em.flush();
-            em.clear();
-
-            List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
-
-//            Member m = em.find(Member.class, member1.getId());
-//
-//            System.out.println("m = " + m.getTeam().getClass());
-//
-//            System.out.println("=============");
-//            System.out.println("teamName" + m.getTeam().getName()); //초기화
-//            System.out.println("=============");
-
+            Member member = new Member();
+            member.setName("hello");
+            member.setHomeAddress(new Address("city", "street", "100"));
+            member.setWorkPeriod(new Period());
+            em.persist(member);
             tx.commit();
         } catch (Exception e){
             tx.rollback();
@@ -50,6 +33,14 @@ public class JpaMain {//
             em.close();
         }
         emf.close();
+
     }
 
+    private static Member saveMember(EntityManager em) {
+        Member member = new Member();
+        member.setName("member1");
+
+        em.persist(member);
+        return member;
+    }
 }
