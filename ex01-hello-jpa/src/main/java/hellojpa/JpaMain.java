@@ -26,7 +26,7 @@ public class JpaMain {
             member.setHomeAddress(address);
             em.persist(member);
 
-            // 값을 통으로 바꿔줘야함
+            // 값을 통으로 바꿔줘야함.
             Address newAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
             member.setHomeAddress(newAddress);
             // 갑타입의 실제 인스턴스인 값을 공유하는 것은 위험, 대신 값(인스턴스)를 복사해서 사용
