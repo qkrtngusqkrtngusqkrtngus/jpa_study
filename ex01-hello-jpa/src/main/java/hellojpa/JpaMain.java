@@ -1,12 +1,11 @@
 package hellojpa;
 
 import org.hibernate.Hibernate;
+import org.hibernate.jpa.internal.PersistenceUnitUtilImpl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class JpaMain {
@@ -20,11 +19,26 @@ public class JpaMain {
 
         tx.begin();
         try {
+            Address address = new Address("city","street", "10");
+
             Member member = new Member();
-            member.setName("hello");
-            member.setHomeAddress(new Address("city", "street", "100"));
-            member.setWorkPeriod(new Period());
+            member.setUsername("member1");
+            member.setHomeAddress(address);
             em.persist(member);
+
+            // 값을 통으로 바꿔줘야함
+            Address newAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+            member.setHomeAddress(newAddress);
+            // 갑타입의 실제 인스턴스인 값을 공유하는 것은 위험, 대신 값(인스턴스)를 복사해서 사용
+//            Address copyAddress = new Address(address.getCity(), address.getStreet(), address.getZipcode());
+//
+//            Member member2 = new Member();
+//            member2.setUsername("member2");
+//            member2.setHomeAddress(copyAddress);
+//            em.persist(member2);
+//
+//            member.getHomeAddress().setCity("newCity");
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();
@@ -33,14 +47,6 @@ public class JpaMain {
             em.close();
         }
         emf.close();
-
     }
 
-    private static Member saveMember(EntityManager em) {
-        Member member = new Member();
-        member.setName("member1");
-
-        em.persist(member);
-        return member;
-    }
 }

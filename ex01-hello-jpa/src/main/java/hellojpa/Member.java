@@ -2,24 +2,27 @@ package hellojpa;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Member {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
-    @Column(name = "USERNAME")
-    private String name;
 
-    //기간 Period
-    @Embedded
+    @Column(name = "USERNAME")
+    private String username;
+
+    // 기간 Period
+    @Embedded // 값 타입을 사용하는 곳에 표시
     private Period workPeriod;
-    //주소
+
+    // 주소
     @Embedded
     private Address homeAddress;
+
 
     public Long getId() {
         return id;
@@ -29,12 +32,12 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Period getWorkPeriod() {

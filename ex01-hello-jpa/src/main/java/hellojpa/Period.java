@@ -3,11 +3,12 @@ package hellojpa;
 import javax.persistence.Embeddable;
 import java.time.LocalDateTime;
 
-@Embeddable
+@Embeddable // 값타입을 정의하는 곳에 표시
 public class Period {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+
 
     public LocalDateTime getStartDate() {
         return startDate;
