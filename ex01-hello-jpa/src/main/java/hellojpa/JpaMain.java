@@ -1,6 +1,8 @@
 package hellojpa;
 
+import javassist.compiler.MemberResolver;
 import org.hibernate.Hibernate;
+import org.hibernate.criterion.CriteriaQuery;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,18 +15,37 @@ public class JpaMain {
 
     public static void main(String[] args){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
-
         tx.begin();
+
         try {
+//            String qlString = "select m From Member as m";
+//            String username;
+//            if(username != null) {
+//                String where = "where m.username like '%kim%'";
+//                qlString + where;
+//            }
+//            List<Member> result = em.createQuery(
+//                    qlString,
+//                    Member.class
+//            ).getResultList();
+
             Member member = new Member();
-            member.setName("hello");
-            member.setHomeAddress(new Address("city", "street", "100"));
-            member.setWorkPeriod(new Period());
+            member.setUsername("member1");
             em.persist(member);
+
+            // flush -> commit, query
+
+            em.flush();
+            //결과 0
+            //dbconn.executeQuery("select * from member");
+
+            for (Member member1 : resultList) {
+                System.out.println("member1 = " + member1);
+            }
+
             tx.commit();
         } catch (Exception e){
             tx.rollback();
@@ -36,11 +57,4 @@ public class JpaMain {
 
     }
 
-    private static Member saveMember(EntityManager em) {
-        Member member = new Member();
-        member.setName("member1");
-
-        em.persist(member);
-        return member;
-    }
 }
